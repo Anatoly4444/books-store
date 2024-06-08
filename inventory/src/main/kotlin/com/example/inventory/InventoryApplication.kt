@@ -12,8 +12,8 @@ class InventoryApplication {
 
     @PostConstruct
     fun init() {
-        bookRepo.save(Book("1984"))
-        bookRepo.save(Book("Clean architecture"))
+        bookRepo.save(Book("1984", 1000))
+        bookRepo.save(Book("Clean architecture", 1000))
     }
 }
 

@@ -3,13 +3,11 @@ package com.example.inventory
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Id
-import lombok.Setter
 
 @Entity
-data class Book (
+data class Reservation(
     val name: String,
-    var amount: Int,
+    val userId: String,
     @Id
     @GeneratedValue
-    val id: Long? = null
-)
+    var id: Long? = null)
