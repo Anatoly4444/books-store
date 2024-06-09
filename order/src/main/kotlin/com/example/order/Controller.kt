@@ -11,19 +11,13 @@ import java.util.concurrent.ConcurrentHashMap
 
 @RestController
 @RequestMapping("/order")
-class Controller(val kafkaTemplate: KafkaTemplate<String, String>, val mapper: ObjectMapper) {
-    private val orders = ConcurrentHashMap<UUID, Order>()
+class Controller(val orderService: OrderService) {
+
 
     @PostMapping("/create/{bookName}")
     fun create(@PathVariable bookName: String) {
-        print("Creating order $bookName")
-        val userId = UUID.randomUUID()
-        val orderId = UUID.randomUUID()
-        val order = Order(
-            orderId, bookName, userId, Status.PENDING
-        )
-        orders.put(orderId, order)
-        val orderJson = mapper.writeValueAsString(order)
-        kafkaTemplate.send("order", orderId.toString(), orderJson)
+        orderService.processNewOrder(bookName)
     }
+
+
 }

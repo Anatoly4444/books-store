@@ -1,10 +1,10 @@
-package com.example.payment
+package com.example.pay
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class PaymentApplicationTests {
+class PayApplicationTests {
 
     @Test
     fun contextLoads() {

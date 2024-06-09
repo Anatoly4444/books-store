@@ -7,6 +7,7 @@ data class Order(
     val bookName: String,
     val userId: UUID,
     var status: Status = Status.NEW,
+    var creditReserved: Boolean = false,
     var reserved: Boolean = false,
     )
 

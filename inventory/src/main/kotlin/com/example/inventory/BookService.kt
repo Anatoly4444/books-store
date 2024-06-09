@@ -16,12 +16,13 @@ class BookService(val bookRepo: BookRepo,
     ) {
 
     @Transactional
+//    @RetryableTopic(include = {}, traversingCauses = true)
     @KafkaListener(topics = [ "order" ], groupId = "reservation-group", concurrency = "2")
     fun orderListener(data: String) {
+        println(data)
         val orderData = mapper.readValue(data, Order::class.java)
         val bookName = orderData.bookName
         xSync.execute(bookName) {
-            throw RuntimeException("I'm runtime. Haha")
             reserveBook(bookName, orderData)
             orderData.reserved = true
             kafkaTemplate.send("payment", orderData.orderId.toString(), mapper.writeValueAsString(orderData))

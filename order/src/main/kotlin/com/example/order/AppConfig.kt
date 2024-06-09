@@ -11,7 +11,15 @@ class AppConfig {
 
     @Bean
     fun orderTopic() =
-        TopicBuilder.name("order")
+        TopicBuilder.name("order-pending")
+            .partitions(10)
+            .replicas(1)
+            .compact()
+            .build()
+
+    @Bean
+    fun reservedTopic() =
+        TopicBuilder.name("order-reserved")
             .partitions(10)
             .replicas(1)
             .compact()
